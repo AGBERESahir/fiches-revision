@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fiche de révision</title>
+<style>
+:root{--bg:#f3f5fa;--sf:#fff;--ink:#16213a;--mu:#5b667f;--ln:#d6dcea;--ac:#2447d6;--aci:#fff;--mk:#ffe58a;--ok:#1a7f4b;--no:#b4442b;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10162a;--sf:#1a2340;--ink:#e8ecf7;--mu:#9aa5c4;--ln:#2c3760;--ac:#8aa4ff;--aci:#10162a;--mk:#5c4a12;--ok:#5fd394;--no:#ff9a82;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10162a;--sf:#1a2340;--ink:#e8ecf7;--mu:#9aa5c4;--ln:#2c3760;--ac:#8aa4ff;--aci:#10162a;--mk:#5c4a12;--ok:#5fd394;--no:#ff9a82;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:720px;margin:0 auto;padding:20px 16px 40px}
+h1{font:700 1.7rem/1.2 Georgia,"Iowan Old Style",serif;margin:0 0 4px}
+.sub{color:var(--mu);margin:0 0 18px}
+.tabs{display:flex;gap:6px;margin-bottom:16px}
+.tabs button,.bar button,.rate button{font:inherit;border:1px solid var(--ln);background:var(--sf);color:var(--ink);padding:10px 14px;border-radius:10px;cursor:pointer}
+.tabs button{flex:1}
+.tabs button[aria-selected="true"]{background:var(--ac);color:var(--aci);border-color:var(--ac)}
+button:focus-visible,summary:focus-visible,select:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+.key{background:var(--sf);border-left:5px solid var(--ac);padding:12px 16px;border-radius:4px 14px 14px 4px;margin-bottom:14px}
+.key h2{font-size:1.05rem;margin:0 0 6px}
+.must{background:var(--mk);border-radius:14px;padding:12px 16px;margin-bottom:14px}
+.must h2,.adv h2{font-size:1.05rem;margin:0 0 6px}
+.must mark{background:none;font-weight:700}
+.adv{background:var(--sf);border-left:5px solid var(--ok);border-radius:4px 14px 14px 4px;padding:12px 16px;margin-top:14px}
+details{background:var(--sf);border:1px solid var(--ln);border-radius:14px;margin-bottom:10px;padding:0 16px}
+summary{font:600 1.1rem Georgia,serif;padding:14px 0;cursor:pointer}
+details[open] summary{border-bottom:1px solid var(--ln);margin-bottom:10px}
+details>*:last-child{margin-bottom:16px}
+mark{background:var(--mk);color:inherit;padding:0 3px;border-radius:3px}
+code{font:.92em ui-monospace,Menlo,Consolas,monospace;background:var(--bg);padding:1px 6px;border-radius:5px}
+.formula{background:var(--bg);border-radius:10px;padding:10px 14px;margin:10px 0;overflow-x:auto}
+.formula span{display:block;color:var(--mu);font-size:.9rem}
+.formula code{font-size:1.05rem;background:none;padding:0;white-space:pre}
+.box{border:1px dashed var(--ln);border-radius:12px;padding:4px 14px 10px;margin:10px 0}
+.box h4{margin:10px 0 4px}
+.tip{border-left:4px solid var(--no);padding-left:12px}
+.note{color:var(--mu);font-style:italic}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.bar label{display:flex;gap:6px;align-items:center;color:var(--mu)}
+select{font:inherit;padding:9px;border-radius:10px;border:1px solid var(--ln);background:var(--sf);color:var(--ink)}
+.prog{height:6px;background:var(--ln);border-radius:3px;overflow:hidden;margin:6px 0 14px}
+.prog i{display:block;height:100%;background:var(--ac);width:0;transition:width .3s}
+.scene{perspective:1100px}
+.card{display:grid;width:100%;min-height:280px;border:0;padding:0;background:none;font:inherit;color:inherit;cursor:pointer;transform-style:preserve-3d;transition:transform .5s}
+.card.flip{transform:rotateY(180deg)}
+.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--sf);border:1px solid var(--ln);border-radius:20px;padding:24px;display:flex;flex-direction:column;justify-content:center;text-align:left;font-size:1.15rem}
+.face small{color:var(--mu);font-size:.85rem;margin-bottom:10px}
+.back{transform:rotateY(180deg);border-color:var(--ac);border-width:2px}
+.rate{display:flex;gap:10px;margin-top:14px}
+.rate button{flex:1;font-weight:600}
+#no{color:var(--no)}#ok{color:var(--ok)}
+.end{text-align:center;background:var(--sf);border:1px solid var(--ln);border-radius:20px;padding:28px 16px}
+.end button{margin:4px}
+.mmw{overflow:auto;padding:6px 2px 12px}
+.mm{position:relative;display:inline-block;min-width:100%}
+.mm svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.mm path{fill:none;stroke:var(--ac);stroke-opacity:.45;stroke-width:2;stroke-linecap:round;transition:opacity .25s}
+.mm path.out{opacity:0}
+.mm path.draw{stroke-dasharray:1;animation:dr .5s ease-out both}
+@keyframes dr{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.mm ul{position:relative;list-style:none;margin:0;padding:0;display:flex;flex-direction:column;justify-content:center}
+.mm li{display:flex;align-items:center;padding:5px 0 5px 46px}
+.mm>ul>li{padding-left:0}
+.kids{transition:opacity .28s,transform .28s}
+.shut>.kids{opacity:0;transform:translateX(-16px)}
+li.off>.kids{display:none}
+.ar{transition:transform .3s}
+li.shut>.nd .ar{transform:rotate(180deg)}
+.nd{font:inherit;font-size:.92rem;text-align:left;color:var(--ink);background:var(--sf);border:1px solid var(--ln);border-radius:10px;padding:8px 12px;white-space:nowrap;display:flex;gap:8px;align-items:center}
+button.nd{cursor:pointer}
+.nd.d0{background:var(--ac);color:var(--aci);border-color:var(--ac);font-weight:700}
+.nd.d1{border-color:var(--ac);font-weight:600}
+.ar{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--ln);color:var(--ink);font-size:.8rem}
+@media (prefers-reduced-motion:reduce){.card,.prog i,.kids,.ar,.mm path{transition:none;animation:none}}
+</style>
+</head>
+<body>
+<main>
+<h1 id="t"></h1><p class="sub" id="s"></p>
+<div class="tabs" role="tablist">
+<button role="tab" data-t="map" aria-selected="true">Carte mentale</button>
+<button role="tab" data-t="fiche" aria-selected="false">Fiche</button>
+<button role="tab" data-t="cards" aria-selected="false">Flashcards</button>
+</div>
+<section id="map"></section>
+<section id="fiche" hidden></section>
+<section id="cards" hidden>
+<div class="bar">
+<select id="tag" aria-label="Filtrer par partie"></select>
+<label><input type="checkbox" id="again"> À revoir seulement</label>
+<button id="mix">Mélanger</button>
+</div>
+<div id="count" class="sub"></div>
+<div class="prog"><i id="pg"></i></div>
+<div id="scene" class="scene">
+<button class="card" id="card" aria-label="Retourner la carte">
+<span class="face front"><small id="ft"></small><span id="q"></span></span>
+<span class="face back"><small>Réponse</small><span id="a"></span></span>
+</button>
+<div class="rate"><button id="no">À revoir</button><button id="ok">Je sais</button></div>
+</div>
+<div id="end" class="end" hidden>
+<h2>Série terminée</h2><p id="res"></p>
+<button id="redo">Recommencer</button><button id="rev">Revoir les cartes à revoir</button>
+</div>
+<p id="empty" class="sub" hidden>Aucune carte pour ce filtre.</p>
+</section>
+</main>
+<script>
+// <COURSE>
+const COURSE={
+title:"Exemple : Programmation linéaire",
+subtitle:"Remplacer cet objet par le contenu du cours.",
+summary:["Un **programme linéaire** optimise une fonction objectif sous contraintes linéaires."],
+retenir:["Point à mémoriser absolument."],
+conseils:["Conseil pratique pour réviser cette partie."],
+sections:[{title:"Modélisation",blocks:[
+{type:"def",term:"Fonction objectif :",text:"expression à maximiser ou minimiser."},
+{type:"formula",label:"Forme générale",text:"Z = c1x1 + c2x2 + … + cnxn"},
+{type:"steps",title:"Phases de formalisation",steps:["Détecter le problème et les variables","Écrire la fonction objectif","Écrire les contraintes"]},
+{type:"note",text:"Complément : x1, …, xn sont les variables de décision."}]}],
+map:{label:"Exemple",children:[{label:"Modélisation",children:[{label:"Variables"},{label:"Fonction objectif"},{label:"Contraintes"}]}]},
+cards:[
+{tag:"Modélisation",q:"Que représente cj dans Z = c1x1 + … + cnxn ?",a:"Le coefficient économique (gain ou coût unitaire) de la variable xj."},
+{tag:"Modélisation",q:"Quelles sont les 3 phases de formalisation ?",a:"1. Variables de décision\n2. Fonction objectif\n3. Contraintes"}]
+};
+// </COURSE>
+const $=s=>document.querySelector(s);
+const esc=t=>String(t).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const fmt=t=>esc(t).replace(/\*\*(.+?)\*\*/g,"<mark>$1</mark>").replace(/`(.+?)`/g,"<code>$1</code>").replace(/\n/g,"<br>");
+const li=a=>a.map(x=>`<li>${fmt(x)}</li>`).join("");
+function block(b){switch(b.type){
+case"def":return`<p><strong>${fmt(b.term)}</strong> ${fmt(b.text)}</p>`;
+case"formula":return`<div class="formula">${b.label?`<span>${fmt(b.label)}</span>`:""}<code>${esc(b.text)}</code></div>`;
+case"steps":return`<div class="box"><h4>${fmt(b.title||"Étapes")}</h4><ol>${li(b.steps)}</ol></div>`;
+case"example":return`<div class="box"><h4>${fmt(b.title||"Exemple")}</h4><p>${fmt(b.text)}</p></div>`;
+case"tip":return`<p class="tip">${fmt(b.text)}</p>`;
+case"note":return`<p class="note">${fmt(b.text)}</p>`;
+case"list":return`<ul>${li(b.items)}</ul>`;
+default:return`<p>${fmt(b.text||"")}</p>`}}
+document.title=COURSE.title;$("#t").textContent=COURSE.title;$("#s").textContent=COURSE.subtitle||"";
+$("#fiche").innerHTML=(COURSE.summary?.length?`<div class="key"><h2>L’essentiel</h2><ul>${li(COURSE.summary)}</ul></div>`:"")+(COURSE.retenir?.length?`<div class="must"><h2>À retenir absolument</h2><ul>${li(COURSE.retenir)}</ul></div>`:"")+COURSE.sections.map(s=>`<details open><summary>${fmt(s.title)}</summary>${s.blocks.map(block).join("")}</details>`).join("")+(COURSE.conseils?.length?`<div class="adv"><h2>Conseils</h2><ul>${li(COURSE.conseils)}</ul></div>`:"");
+const tags=[...new Set(COURSE.cards.map(c=>c.tag).filter(Boolean))];
+$("#tag").innerHTML=`<option value="">Toutes les parties</option>`+tags.map(t=>`<option>${esc(t)}</option>`).join("");
+const KEY="fiche:"+COURSE.title;let st={ok:[],no:[]};
+try{st=JSON.parse(localStorage.getItem(KEY))||st}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
+let order=[],i=0,seen=0;
+function tab(t){["map","fiche","cards"].forEach(x=>{$("#"+x).hidden=x!==t});document.querySelectorAll(".tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===t));if(t==="map")draw()}
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>tab(b.dataset.t));
+const lab=b=>b.term||b.title||b.label||(b.items&&b.items[0])||(b.text||"").slice(0,40);
+const auto={label:COURSE.title,children:COURSE.sections.map(s=>({label:s.title,children:s.blocks.map(b=>({label:lab(b)}))}))};
+function mm(n,d){const k=n.children||[],c="nd d"+Math.min(d,2);return`<li>${k.length?`<button class="${c}" aria-expanded="true">${fmt(n.label)}<b class="ar">‹</b></button>`:`<span class="${c}">${fmt(n.label)}</span>`}${k.length?`<ul class="kids">${k.map(x=>mm(x,d+1)).join("")}</ul>`:""}</li>`}
+const P=(e,r)=>{let x=0,y=0;while(e&&e!==r){x+=e.offsetLeft;y+=e.offsetTop;e=e.offsetParent}return{x,y}};
+function draw(an){const r=document.querySelector(".mm"),s=r.querySelector("svg"),L=[];
+r.querySelectorAll("li:not(.off)>.kids>li").forEach(c=>{const pb=c.parentElement.previousElementSibling,cn=c.firstElementChild;
+if(!pb||!pb.offsetWidth||!cn.offsetWidth)return;
+const a=P(pb,r),b=P(cn,r),x1=a.x+pb.offsetWidth,y1=a.y+pb.offsetHeight/2,x2=b.x,y2=b.y+cn.offsetHeight/2,d=(x2-x1)/2;
+L.push([c,`M${x1} ${y1}C${x1+d} ${y1} ${x2-d} ${y2} ${x2} ${y2}`])});
+s.innerHTML=L.map(l=>`<path d="${l[1]}" pathLength="1"/>`).join("");
+s.querySelectorAll("path").forEach((p,i)=>{p._c=L[i][0];if(an&&p._c!==an&&an.contains(p._c))p.classList.add("draw")})}
+$("#map").innerHTML=`<div class="mmw"><div class="mm"><svg aria-hidden="true"></svg><ul>${mm(COURSE.map||auto,0)}</ul></div></div>`;
+$("#map").onclick=e=>{const b=e.target.closest("button.nd");if(!b)return;const li=b.parentElement,k=li.querySelector(":scope>.kids");
+if(li.classList.contains("shut")){li.classList.remove("off");void k.offsetWidth;li.classList.remove("shut");b.setAttribute("aria-expanded","true");draw(li)}
+else{li.classList.add("shut");b.setAttribute("aria-expanded","false");document.querySelectorAll(".mm path").forEach(p=>{if(p._c!==li&&li.contains(p._c))p.classList.add("out")});setTimeout(()=>{li.classList.add("off");draw()},280)}};
+draw();addEventListener("resize",()=>draw());document.fonts&&document.fonts.ready.then(()=>draw());
+function build(shuffle){const g=$("#tag").value,o=$("#again").checked;
+order=COURSE.cards.map((_,n)=>n).filter(n=>(!g||COURSE.cards[n].tag===g)&&(!o||st.no.includes(n)));
+if(shuffle)for(let k=order.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[order[k],order[j]]=[order[j],order[k]]}
+i=0;seen=0;show()}
+function show(){const n=order.length,done=n&&i>=n;
+$("#empty").hidden=!!n;$("#scene").hidden=!n||done;$("#end").hidden=!done;
+$("#pg").style.width=(n?i/n*100:0)+"%";
+if(done){const k=order.filter(x=>st.ok.includes(x)).length;$("#res").textContent=`${k} carte${k>1?"s":""} sue${k>1?"s":""} sur ${n}.`;$("#count").textContent="";return}
+if(!n){$("#count").textContent="";return}
+const c=COURSE.cards[order[i]];$("#card").classList.remove("flip");
+$("#ft").textContent=c.tag||"";$("#q").innerHTML=fmt(c.q);$("#a").innerHTML=fmt(c.a);
+$("#count").textContent=`Carte ${i+1} sur ${n}`}
+function rate(ok){const n=order[i];st.ok=st.ok.filter(x=>x!==n);st.no=st.no.filter(x=>x!==n);(ok?st.ok:st.no).push(n);save();i++;show()}
+$("#card").onclick=()=>$("#card").classList.toggle("flip");
+$("#ok").onclick=()=>rate(true);$("#no").onclick=()=>rate(false);
+$("#mix").onclick=()=>build(true);$("#tag").onchange=()=>build(false);$("#again").onchange=()=>build(false);
+$("#redo").onclick=()=>{$("#again").checked=false;build(false)};
+$("#rev").onclick=()=>{$("#again").checked=true;build(false)};
+build(false);
+</script>
+</body>
+</html>
