@@ -47,6 +47,7 @@ Claude livre la page (publiée en lien ou en fichier `.html`), résume ce qu’e
 ```
 .
 ├── README.md
+├── LICENSE                      # licence MIT
 ├── fiches-revision.skill        # archive prête à importer
 └── fiches-revision/
     ├── SKILL.md                 # instructions du skill
@@ -127,3 +128,7 @@ Après toute modification, régénère l’archive :
 ```bash
 zip -r fiches-revision.skill fiches-revision
 ```
+
+## Licence
+
+Projet publié sous licence [MIT](./LICENSE).
